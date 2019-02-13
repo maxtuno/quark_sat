@@ -36,7 +36,6 @@ struct cpu {
     long **FF;
 };
 
-
 void decide(struct cpu *cpu) {
     long i;
     for (i = 0; i < cpu->n; i++) {
@@ -49,13 +48,13 @@ void decide(struct cpu *cpu) {
 }
 
 long select(struct cpu *cpu) {
-    long i, lit;
+    long i, x;
     for (i = 0; i < cpu->n; i++) {
         if (cpu->X[i] != 0) {
-            lit = cpu->X[i];
+            x = cpu->X[i];
             cpu->X[i] = 0;
             cpu->x--;
-            return lit;
+            return x;
         }
     }
     return 0;
@@ -124,36 +123,38 @@ int main(int argc, char **argv) {
     struct cpu cpu;
 
     if (argc != 2) {
-        printf("usage: hess <instance>\n");
+        printf("usage: %s <instance>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
     FILE *file = fopen(argv[1], "r");
     if (strcmp(buffer, "c") == 0) {
-        while (strcmp(buffer, "\n") != 0);
+        while (strcmp(buffer, "\n") != 0)
+            ;
     }
     do {
         fscanf(file, "%s", buffer);
     } while (strcmp(buffer, "p") != 0);
     fscanf(file, " cnf %li %li", &cpu.n, &cpu.m);
-    cpu.X = (long *) calloc((size_t) cpu.n, sizeof(long));
-    cpu.Y = (long *) calloc((size_t) cpu.n, sizeof(long));
-    cpu.Z = (long *) calloc((size_t) cpu.m, sizeof(long));
+    cpu.X = (long *)calloc((size_t)cpu.n, sizeof(long));
+    cpu.Y = (long *)calloc((size_t)cpu.n, sizeof(long));
+    cpu.Z = (long *)calloc((size_t)cpu.m, sizeof(long));
     cpu.x = 0;
     cpu.y = 0;
-    cpu.FF = (long **) calloc((size_t) cpu.m, sizeof(long *));
+    cpu.FF = (long **)calloc((size_t)cpu.m, sizeof(long *));
     for (i = 0; i < cpu.m; i++) {
         j = 0;
-        cpu.FF[i] = (long *) calloc((size_t) cpu.n, sizeof(long));
+        cpu.FF[i] = (long *)calloc((size_t)cpu.n, sizeof(long));
         do {
             fscanf(file, "%s", buffer);
             if (strcmp(buffer, "c") == 0) {
-                while (strcmp(buffer, "\n") != 0);
+                while (strcmp(buffer, "\n") != 0)
+                    ;
             }
             cpu.FF[i][j++] = atoi(buffer);
         } while (strcmp(buffer, "0") != 0);
         j--;
-        cpu.FF[i] = (long *) realloc(cpu.FF[i], j * sizeof(long));
+        cpu.FF[i] = (long *)realloc(cpu.FF[i], j * sizeof(long));
         cpu.Z[i] = j;
     }
 
