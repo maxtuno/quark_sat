@@ -1,5 +1,5 @@
 # QuarkSAT 
-## A complete SAT solver implemented on few lines of code
+## A complete SAT solver implemented on few lines of C code.
 
 ### It is of constant and linear spatial complexity, use as a skeleton for your SAT solver.
 
