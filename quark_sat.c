@@ -78,7 +78,7 @@ bool backtrack(struct cpu *cpu) {
     return false;
 }
 
-long exist_conflicts(struct cpu *cpu) {
+long exist_conflict(struct cpu *cpu) {
     long i, j, c;
     for (i = 0; i < cpu->m; i++) {
         c = 0;
@@ -99,7 +99,7 @@ long exist_conflicts(struct cpu *cpu) {
 long dpll(struct cpu *cpu) {
     long g = 0;
     for (;;) {
-        if (exist_conflicts(cpu) != 0) {
+        if (exist_conflict(cpu) != 0) {
             if (cpu->x == 0 || !backtrack(cpu)) {
                 return false;
             }
