@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
         do {
             fscanf(file, "%s", buffer);
             if (strcmp(buffer, "c") == 0) {
-                break;
+                continue;
             }
             cpu.FF[i][j++] = atol(buffer);
         } while (strcmp(buffer, "0") != 0);
