@@ -47,32 +47,23 @@ void decide(struct cpu *cpu) {
     }
 }
 
-long select(struct cpu *cpu) {
+bool backtrack(struct cpu *cpu) {
     long i, x;
     for (i = 0; i < cpu->n; i++) {
         if (cpu->X[i] != 0) {
             x = cpu->X[i];
             cpu->X[i] = 0;
             cpu->x--;
-            return x;
-        }
-    }
-    return 0;
-}
-
-bool backtrack(struct cpu *cpu) {
-    long x;
-    while (cpu->x != 0) {
-        x = select(cpu);
-        if (cpu->Y[labs(x) - 1] == x) {
-            cpu->Y[labs(x) - 1] = 0;
-            cpu->y--;
-        } else {
-            cpu->X[labs(x) - 1] = -x;
-            cpu->x++;
-            cpu->Y[labs(x) - 1] = -x;
-            cpu->y++;
-            return true;
+            if (cpu->Y[labs(x) - 1] == x) {
+                cpu->Y[labs(x) - 1] = 0;
+                cpu->y--;
+            } else {
+                cpu->X[labs(x) - 1] = -x;
+                cpu->x++;
+                cpu->Y[labs(x) - 1] = -x;
+                cpu->y++;
+                return true;
+            }
         }
     }
     return false;
