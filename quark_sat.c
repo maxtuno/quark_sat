@@ -54,13 +54,13 @@ bool backtrack(struct cpu *cpu) {
             x = cpu->X[i];
             cpu->X[i] = 0;
             cpu->x--;
-            if (cpu->Y[labs(x) - 1] == x) {
-                cpu->Y[labs(x) - 1] = 0;
+            if (cpu->Y[i] == x) {
+                cpu->Y[i] = 0;
                 cpu->y--;
             } else {
-                cpu->X[labs(x) - 1] = -x;
+                cpu->X[i] = -x;
                 cpu->x++;
-                cpu->Y[labs(x) - 1] = -x;
+                cpu->Y[i] = -x;
                 cpu->y++;
                 return true;
             }
