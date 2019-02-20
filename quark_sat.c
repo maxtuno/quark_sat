@@ -29,7 +29,6 @@ struct cpu {
     long n;
     long m;
     long x;
-    long y;
     long *X;
     long *Y;
     long *Z;
@@ -56,12 +55,10 @@ bool backtrack(struct cpu *cpu) {
             cpu->x--;
             if (cpu->Y[i] == x) {
                 cpu->Y[i] = 0;
-                cpu->y--;
             } else {
                 cpu->X[i] = -x;
                 cpu->x++;
                 cpu->Y[i] = -x;
-                cpu->y++;
                 return true;
             }
         }
@@ -132,7 +129,6 @@ int main(int argc, char **argv) {
     cpu.Y = (long *) calloc((size_t) cpu.n, sizeof(long));
     cpu.Z = (long *) calloc((size_t) cpu.m, sizeof(long));
     cpu.x = 0;
-    cpu.y = 0;
     cpu.FF = (long **) calloc((size_t) cpu.m, sizeof(long *));
     for (i = 0; i < cpu.m; i++) {
         j = 0;
