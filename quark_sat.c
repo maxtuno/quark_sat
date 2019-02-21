@@ -47,18 +47,16 @@ void decide(struct cpu *cpu) {
 }
 
 bool backtrack(struct cpu *cpu) {
-    long i, x;
+    long i;
     for (i = 0; i < cpu->n; i++) {
         if (cpu->X[i] != 0) {
-            x = cpu->X[i];
-            cpu->X[i] = 0;
-            cpu->x--;
-            if (cpu->Y[i] == x) {
+            if (cpu->Y[i] == cpu->X[i]) {
                 cpu->Y[i] = 0;
+                cpu->X[i] = 0;
+                cpu->x--;
             } else {
-                cpu->X[i] = -x;
-                cpu->x++;
-                cpu->Y[i] = -x;
+                cpu->X[i] = -cpu->X[i];
+                cpu->Y[i] = cpu->X[i];
                 return true;
             }
         }
