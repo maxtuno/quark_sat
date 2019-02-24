@@ -142,6 +142,7 @@ int main(int argc, char **argv) {
         cpu.FF[i] = (long *) realloc(cpu.FF[i], j * sizeof(long));
         cpu.Z[i] = j;
     }
+    fclose(file);
 
     if (dpll(&cpu)) {
         printf("SAT\n");
